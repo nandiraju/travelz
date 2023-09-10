@@ -1,0 +1,102 @@
+<template>
+  <div class="page" data-name="dates">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">What Dates</div>
+        <div class="right">
+          <ion-icon name="square-outline" style="opacity: 0; margin-right: 10px"></ion-icon>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar toolbar-bottom no-shadow" style="height:70px;background-color: #fff;">
+      <div class="toolbar-inner padding">
+        <a class="button button-fill color-teal hider" onclick="goBack()" href="#">&nbsp;&nbsp;Prev&nbsp;&nbsp;</a>
+        <a class="button button-fill color-blue" onclick="loadScreen('/howmany/')"
+          href="#">&nbsp;&nbsp;Next&nbsp;&nbsp;</a>
+      </div>
+    </div>
+    <div
+      class="page-content hide-navbar-on-scroll display-flex flex-direction-column justify-content-center align-content-center">
+      <div>
+        <div class="block-title block-title-medium text-align-center">
+          When are you planning to go?
+        </div>
+        <div class="row block justify-content-center align-content-center">
+          <div class="col-100 medium-60">
+            <form class="list form-list" id="date-form">
+              <ul style="padding-bottom: 10px">
+                <div class="row no-gap">
+                  <div class="col">
+                    <li class="item-content item-input item-input-outline">
+                      <div class="item-inner">
+                        <div class="item-title item-floating-label">
+                          Start Date
+                        </div>
+                        <div class="item-input-wrap">
+                          <input type="text" name="start_date" placeholder="Select Date and Time" readonly="readonly"
+                            id="start_date" />
+                          <span class="input-clear-button"></span>
+                        </div>
+                      </div>
+                    </li>
+                  </div>
+                  <div class="col">
+                    <li class="item-content item-input item-input-outline">
+                      <div class="item-inner">
+                        <div class="item-title item-floating-label">
+                          End Date
+                        </div>
+                        <div class="item-input-wrap">
+                          <input type="text" name="end_date" placeholder="Select Date and Time" readonly="readonly"
+                            id="end_date" />
+                          <span class="input-clear-button"></span>
+                        </div>
+                      </div>
+                    </li>
+                  </div>
+                </div>
+              </ul>
+            </form>
+          </div>
+        </div>
+
+        <div class="block inset m10">
+          <lottie-player id="ani-player" src="https://lottie.host/80d5450d-96f3-4c1f-9f69-ef300bd5e5dd/RGZqLOiWyw.json"
+            background="transparent" speed="0.5" style="width: 330px; margin: auto" loop autoplay></lottie-player>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  return {
+    data: function () {
+      return {
+        is_checked: "un-checked",
+      };
+    },
+    mounted() {
+      var self = this;
+      var startDate = app.calendar.create({
+        inputEl: '#start_date',
+        timePicker: false,
+        openIn: 'popup',
+        dateFormat: 'mm/dd/yyyy',
+      });
+      var endDate = app.calendar.create({
+        inputEl: '#end_date',
+        timePicker: false,
+        openIn: 'popup',
+        dateFormat: 'mm/dd/yyyy',
+      });
+    },
+  };
+</script>

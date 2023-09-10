@@ -1,0 +1,87 @@
+<template>
+  <div class="page" data-name="home">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">Settings</div>
+        <div class="right">
+          <ion-icon name="square-outline" style="opacity: 0; margin-right: 10px"></ion-icon>
+        </div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="block-title display-flex flex-direction-row align-items-center justify-content-space-between">
+        <div class="display-flex flex-direction-row align-items-center">
+          <ion-icon name="settings-outline" class="heading-icon"></ion-icon>&nbsp;&nbsp;Theme Setting
+        </div>
+      </div>
+      <div class="list simple-list inset">
+        <ul>
+          <li>
+            <span>Dark Mode</span>
+            <label class="toggle toggle-init color-blue">
+              <input type="checkbox" {{is_checked}} id="darkmode-enabled" />
+              <span class="toggle-icon"></span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block inset m10">
+        <lottie-player id="ani-player" src="https://lottie.host/912b39b8-e206-4d0e-a51d-c059e3edacf3/NlgTikHj7c.json"
+          background="transparent" speed="0.5" style="width: 50%; margin: auto" loop autoplay></lottie-player>
+      </div>
+      <div class="block-title display-flex flex-direction-row align-items-center justify-content-space-between">
+        <div class="display-flex flex-direction-row align-items-center">
+          <ion-icon name="bulb-outline" class="heading-icon"></ion-icon>&nbsp;&nbsp;MyBenefits.ai - Discharge Plus
+        </div>
+      </div>
+      <div class="block inset shadow-card" style="padding: 20px">
+        The AI-Powered platform for Personalized and Real-time Information of
+        hospital discharges. The discharge process can be a stressful time for
+        both hospitals and patients. It can be overwhelming to keep track of all
+        the necessary information and ensure a smooth transition from hospital
+        to home. Our AI-powered platform is here to simplify the process and
+        provide personalized support for hospitals and patients.
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  return {
+    data: function () {
+      return {
+        is_checked: "un-checked",
+      };
+    },
+    mounted() {
+      var self = this;
+      var darkmode = DataStore.getObject("DARKMODE");
+
+      if (darkmode) {
+        self.$setState({
+          is_checked: darkmode ? "checked" : "un-checked",
+        });
+      }
+      $$("#darkmode-enabled").on("change", function () {
+        if ($$("#darkmode-enabled").prop("checked") == true) {
+          darkmode = true;
+        } else {
+          darkmode = false;
+        }
+        setDarkmode(darkmode);
+        self.$setState({
+          is_checked: darkmode ? "checked" : "un-checked",
+        });
+        DataStore.set("DARKMODE", darkmode);
+      });
+    },
+  };
+</script>

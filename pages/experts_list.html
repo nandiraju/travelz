@@ -1,0 +1,189 @@
+<template>
+    <div class="page" data-name="experts_list">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span class="ios-only">Back</span>
+                    </a>
+                </div>
+                <div class="title">Experts</div>
+                <div class="right">
+                    <div style="padding-right: 15px;" class="link" @click="searchByKeyword()">
+                        <ion-icon name="search-outline" style="color: dodgerblue;" class="bigger-one"></ion-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-content hide-navbar-on-scroll">
+
+            <div class="block-title display-flex flex-direction-row align-items-center justify-content-space-between ">
+                <div class="display-flex flex-direction-row align-items-center">
+                    <ion-icon name="filter-outline" class="heading-icon"></ion-icon>&nbsp;&nbsp;Filter by topic
+                </div>
+                <div class="display-flex flex-direction-row align-items-center" @click="searchByFilter('')">
+                    <ion-icon name="refresh-outline" class="heading-icon"></ion-icon>
+                </div>
+            </div>
+
+
+            <div class="block">
+                <div class="scrolling-wrapper-flexbox" style="height: 50px;">
+                    {{#each search_terms}}
+                    <a @click="searchByFilter('{{term}}')" class="link" href="#" style="margin-right:10px;">
+                        <div class="chip color-blue">
+                            <div class="chip-label">{{term}}</div>
+                        </div>
+                    </a>
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="block-title display-flex flex-direction-row align-items-center justify-content-space-between ">
+                <div class="display-flex flex-direction-row align-items-center">
+                    <ion-icon name="albums-outline" class="heading-icon"></ion-icon>&nbsp;&nbsp;Experts Details
+                </div>
+            </div>
+
+
+
+            {{#js_if "this.experts.length<1"}} <div class="block text-align-center">
+                <div class="block inset m10">
+                    <lottie-player id="ani-player" src="img/lottie/meditation.json" background="transparent" speed="1"
+                        style="width:60%;margin:auto;" loop autoplay></lottie-player>
+                </div>
+                <h4 class="text-align-center">Fetching latest data</h4>
+        </div>{{/js_if}}
+
+        <div class="block">
+            {{#each experts}}
+            <div class="card" style="margin-bottom:20px;">
+                <!-- <div class="card-header">{{name}}</div> -->
+                <div class="card-header">
+                    <div>{{name}}</div>
+                    <div class="chip chip-outline chip-tiny color-blue" onclick="scanCode()">
+                        <div class="chip-label chip-small">Book Slot</div>
+                    </div>
+                </div>
+                <div class=" card-content card-content-padding">
+                    <div
+                        style="background: url('img/b.jpg') no-repeat center center;background-size: cover;width:100%;height:200px;border-radius: 5px;display: flex;justify-content: center;align-items: center;">
+                        <p class="text-align-center" style="color: white;">
+                            <img src="{{image}}" style="margin:auto;width:100px;border-radius: 10px;">
+                            <br>
+                            {{name}}
+                        </p>
+
+                    </div>
+                    <div style="padding:10px;">
+                        {{description}}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="display-flex">
+                        <ion-icon name="bookmark-outline" class="card-icon save-item-button" style="color:orangered">
+                        </ion-icon>
+                    </div>
+
+                    <!-- <div class="display-flex" style="align-items: center;justify-content: center;">
+                            <ion-icon name="time-outline" class="card-icon"></ion-icon>
+                            &nbsp;{{category}}
+                        </div> -->
+
+                    <div class="display-flex" style="align-items: center;justify-content: center;">
+                        {{tags}}
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+
+
+    </div>
+    </div>
+</template>
+<script>
+    return {
+        data: function () {
+            return {
+                search_terms: search_terms,
+                experts: []
+            }
+        },
+        mounted() {
+            let self = this;
+            app.off('experts-data-loaded').on("experts-data-loaded", function (el) {
+                self.$setState({
+                    experts: ALL_EXPERTS
+                });
+            });
+            loadExpertsData();
+        },
+        methods: {
+            bookmarkPrompt: function (prompt_id) {
+                // let domId = "#" + prompt_id;
+                // $$(domId).attr('name', "bookmark");
+                // let foundEntry = this.code_types.find((x) => x.id == prompt_id);
+
+                // let bookmarked_prompts = DataStore.get(Tables.BOOKMARKED_PROMPTS);
+                // let updated_bookmarks = [foundEntry, ...bookmarked_prompts];
+                // DataStore.set(Tables.BOOKMARKED_PROMPTS, updated_bookmarks);
+                // showToast("Bookmarked successfully", "center");
+            },
+            addNote: function (prompt_index) {
+                var route = "/notes/" + prompt_index;
+                loadScreen(encodeURI(route));
+            },
+            searchByFilter: function (searchText) {
+                var self = this;
+                // if (!searchText || searchText == "*") {
+                //     self.$setState({
+                //         code_types: [...self.custom_prompts, ...ALL_PROMPTS]
+                //     });
+                //     return;
+                // }
+                loadScreen("/feed/" + searchText);
+            },
+            searchByKeyword: function () {
+                var self = this;
+                self.$app.dialog.prompt('Enter a search topic to know more.', function (search_term) {
+                    if (search_term === '') {
+                        return;
+                    }
+
+                    self.searchByFilter(search_term);
+                });
+            },
+            saveCheckin: function (scanText) {
+                var self = this;
+                let foundBooth = ALL_BOOTHS.find((x) => x.id == scanText);
+                // alert("1.DATA " + scanText);
+                self.$app.dialog.alert('Congratulations!. You are now checked in to the booth - ' + foundBooth.title + ".\Keep checking the announcement section to see raffle results.");
+
+                let my_checkins = DataStore.get("my_checkins");
+                let foundCheckin = my_checkins.find((oneCheckin) => oneCheckin.booth_id == foundBooth.id);
+
+                if (!foundCheckin) {
+                    let new_checkin = {};
+                    new_checkin.mobile_id = DataStore.uuid();
+                    new_checkin.booth_id = foundBooth.id;
+                    new_checkin.title = foundBooth.title;
+                    new_checkin.created_at = moment();
+                    new_checkin.user_id = getUserId();
+                    createEntry("CHECKINS", new_checkin);
+                    let update_checkins = [new_checkin, ...my_checkins];
+                    DataStore.set("my_checkins", update_checkins);
+                    computeDashboard();
+                    app.emit("update-dashboard");
+                } else {
+                    self.$app.dialog.alert("Already checked in to this booth");
+                }
+
+
+            }
+        }
+    }
+</script>

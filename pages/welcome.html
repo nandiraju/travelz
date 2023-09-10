@@ -1,0 +1,76 @@
+<template>
+  <div class="page" data-name="welcome">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back hider">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">Travelz</div>
+        <div class="right">
+          <ion-icon name="square-outline" style="opacity: 0; margin-right: 10px"></ion-icon>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar toolbar-bottom no-shadow" style="height:70px;background-color: #fff;">
+      <div class="toolbar-inner padding">
+        <a class="button button-fill color-teal hider" href="#">&nbsp;&nbsp;Prev&nbsp;&nbsp;</a>
+        <a class="button button-fill color-blue" onclick="loadScreen('/dates/')"
+          href="#">&nbsp;&nbsp;Next&nbsp;&nbsp;</a>
+      </div>
+    </div>
+    <div class="page-content display-flex flex-direction-column justify-content-center align-content-center">
+      <div>
+        <div class="block-title block-title-medium text-align-center">
+          Travelz is an AI travel agent that helps you plan your trip.
+        </div>
+        <div class="row block justify-content-center align-content-center">
+          <div class="col-100 medium-60">
+            <form class="searchbar">
+              <div class="searchbar-inner">
+                <div class="searchbar-input-wrap">
+                  <input type="search" placeholder="Where do you wnat to go ?" class="text-align-center">
+                  <i class="searchbar-icon"></i>
+                  <span class="input-clear-button"></span>
+                </div>
+                <span class="searchbar-disable-button">Cancel</span>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="block inset m10">
+          <lottie-player id="ani-player" src="https://lottie.host/912b39b8-e206-4d0e-a51d-c059e3edacf3/NlgTikHj7c.json"
+            background="transparent" speed="0.5" style="width: 320px; margin: auto" loop autoplay></lottie-player>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  return {
+    data: function () {
+      return {
+        is_checked: "un-checked",
+      };
+    },
+    mounted() {
+      var self = this;
+      var startDate = app.calendar.create({
+        inputEl: '#start_date',
+        timePicker: false,
+        openIn: 'popup',
+        dateFormat: 'mm/dd/yyyy',
+      });
+      var endDate = app.calendar.create({
+        inputEl: '#end_date',
+        timePicker: false,
+        openIn: 'popup',
+        dateFormat: 'mm/dd/yyyy',
+      });
+    },
+  };
+</script>

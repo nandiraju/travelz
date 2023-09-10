@@ -1,0 +1,112 @@
+<template>
+  <div class="page" data-name="preferences">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">Travelz</div>
+        <div class="right">
+          <ion-icon name="square-outline" style="opacity: 0; margin-right: 10px"></ion-icon>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar toolbar-bottom no-shadow" style="height:70px;background-color: #fff;">
+      <div class="toolbar-inner padding">
+        <a class="button button-fill color-teal hider" href="#">&nbsp;&nbsp;Prev&nbsp;&nbsp;</a>
+        <a class="button button-fill color-blue" onclick="loadScreen('/iten/')"
+          href="#">&nbsp;&nbsp;Next&nbsp;&nbsp;</a>
+      </div>
+    </div>
+    <div class="page-content display-flex flex-direction-column justify-content-center align-content-center">
+      <div>
+        <div class="block-title block-title-medium text-align-center">
+          What activities are important in your trip?
+        </div>
+        <div class="row block justify-content-center align-content-center">
+          <div class="col-100 medium-60">
+            <div class="rblock justify-content-center align-content-center">
+              <div class="chip color-orange chip chip-outline">
+                <div class="cm">
+                  <img src="https://www.svgrepo.com/show/447985/eating-out.svg" alt="">
+                </div>
+                <div class="chip-label">Food</div>
+              </div>
+              <div class="chip color-orange chip chip-outline">
+                <div class="cm">
+                  <img src="https://www.svgrepo.com/show/448069/museum-theatre.svg" alt="">
+                </div>
+                <div class="chip-label">Theater</div>
+              </div>
+              <div class="chip color-orange chip chip-outline">
+                <div class="cm">
+                  <img src="https://www.svgrepo.com/show/338028/hot-air-balloon.svg" alt="">
+                </div>
+                <div class="chip-label">Adventure</div>
+              </div>
+              <div class="chip color-orange chip">
+                <div class="cm">
+                  <img src="https://www.svgrepo.com/show/246130/amusement-park-fair.svg" alt="">
+                </div>
+                <div class="chip-label">Amusement</div>
+              </div>
+              <div class="chip color-orange chip chip-outline">
+                <div class="cm">
+                  <img src="https://www.svgrepo.com/show/524609/golf.svg" alt="">
+                </div>
+                <div class="chip-label">Sports</div>
+              </div>
+              <div class="chip color-orange chip chip-outline">
+                <div class="cm">
+                  <img src="https://www.svgrepo.com/show/532351/wine-glass.svg" alt="">
+                </div>
+                <div class="chip-label">Wine & Beer</div>
+              </div>
+              <div class="chip color-orange chip chip-outline">
+                <div class="cm">
+                  <img src="https://www.svgrepo.com/show/418641/architecture-city-india.svg" alt="">
+                </div>
+                <div class="chip-label">Attractions</div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+        <div class="block inset m10">
+          <lottie-player id="ani-player" src="https://lottie.host/c3be0c08-086d-477b-be53-7f795dea3f31/YBsTpbMjAu.json"
+            background="transparent" speed="1" style="width: 320px; margin: auto" loop autoplay></lottie-player>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  return {
+    data: function () {
+      return {
+        is_checked: "un-checked",
+      };
+    },
+    mounted() {
+      var self = this;
+      var startDate = app.calendar.create({
+        inputEl: '#start_date',
+        timePicker: false,
+        openIn: 'popup',
+        dateFormat: 'mm/dd/yyyy',
+      });
+      var endDate = app.calendar.create({
+        inputEl: '#end_date',
+        timePicker: false,
+        openIn: 'popup',
+        dateFormat: 'mm/dd/yyyy',
+      });
+    },
+  };
+</script>
