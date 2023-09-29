@@ -1,0 +1,74 @@
+<template>
+    <div class="page" data-name="feeds">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+
+                <div class="navbar-inner sliding">
+                    <div class="left">
+                        &nbsp;
+                        <a href="#" class="link back">
+                            <i class="icon icon-back"></i>
+                        </a>
+                    </div>
+                    <div class="title">Trending</div>
+                    <div style="padding-right: 15px;" class="link">
+                        <ion-icon name="search-outline" style="opacity: 0;" class="bigger-one"></ion-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content">
+
+            <div class="block-title display-flex flex-direction-row align-items-center justify-content-space-between ">
+                <div class="display-flex flex-direction-row align-items-center">
+                    <ion-icon name="albums-outline" class="heading-icon"></ion-icon>&nbsp;&nbsp;{{topic}}
+                </div>
+            </div>
+
+            <div class="block">
+                {{#each news_feed}}
+                <div class="card" style="margin-bottom:20px;border-radius: 8px;" onclick="showInBrowser('{{link}}')">
+                    <!-- <div class="card-header">{{name}}</div> -->
+                    <div class="card-header">
+                        <span style="font-size: 1.2em;text-align: center;font-weight: bold;">{{title}}</span>
+                    </div>
+                    <div class="card-content card-content-padding text-align-center">
+                        <img src="{{image}}" style="width:250px;margin:auto;border-radius: 5px;margin-bottom: 10px;">
+                        <br>
+                        <span style="font-size: 1.2em;text-align: center;">{{content}}</span>
+                        <br>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+
+        </div>
+    </div>
+    </div>
+</template>
+
+<script>
+    return {
+        data: function () {
+            return {
+                news_feed: [],
+                topic: "Trending"
+            }
+        },
+        mounted() {
+            var self = this;
+            // var topic = this.$route.params?.topic;
+            self.$setState({
+                news_feed: NEWS_FEED,
+            });
+        },
+        methods: {
+            editNote: function (note_id) {
+
+            },
+        },
+
+
+    }
+</script>

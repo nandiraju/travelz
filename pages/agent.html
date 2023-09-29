@@ -1,0 +1,207 @@
+<template>
+  <div class="page" data-name="agent">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a class="link panel-open">
+            <ion-icon name="menu-outline" class="white-icon" size="large">
+            </ion-icon>
+          </a>
+        </div>
+        <div class="title">Ask Flora</div>
+      </div>
+    </div>
+    <div class="toolbar messagebar">
+      <div class="toolbar-inner">
+        <a class="link" href="#" @click="showVoiceUI">
+          <ion-icon
+            name="mic-circle-outline"
+            class="bigger-icon"
+            style="font-size: 35px"
+          >
+          </ion-icon>
+        </a>
+        <div class="messagebar-area">
+          <textarea
+            id="user_message"
+            placeholder="Ask Flora"
+            style="margin-left: 10px; border-bottom: 1px solid #444"
+            class="item-input-wrap"
+          ></textarea>
+        </div>
+        <a class="link" href="#" @click="showMessages">
+          <ion-icon
+            name="arrow-forward-circle-outline"
+            class="bigger-icon"
+            style="font-size: 35px"
+          >
+          </ion-icon>
+        </a>
+      </div>
+    </div>
+    <div class="page-content messages-content">
+      <div class="messages" style="padding-left: 10px; padding-right: 10px">
+        <!-- Date stamp -->
+        <div class="messages-title"><b>Today is </b>{{to_day}}</div>
+
+        <!-- Received message (by default - grey on left side) -->
+        <div class="message message-received message-tail">
+          <div class="message-content">
+            <!-- Bubble with text -->
+            <div class="message-bubble">
+              <div class="message-text">
+                Hi, I am Flora, How are you today?.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  return {
+    data: function () {
+      // Must return an object
+      // Hold references for access across methods
+      return {
+        messages: {},
+        messageBar: {},
+        to_day: moment().format("dddd Do MMMM, YYYY"),
+      };
+    },
+    mounted() {
+      var self = this;
+      var messages = app.messages.create({
+        el: ".messages",
+        tailMessageRule: function (message, previousMessage, nextMessage) {
+          if (message.isTitle) return false;
+
+          if (message.noTail) return false; // Custome style
+
+          if (
+            !nextMessage ||
+            nextMessage.type !== message.type ||
+            nextMessage.name !== message.name
+          )
+            return true;
+          return true;
+        },
+      });
+      var messagebar = app.messagebar.create({
+        el: ".messagebar",
+      });
+
+      this.$setState({
+        messages: messages,
+        messageBar: messagebar,
+        nlp_url:
+          "https://us-central1-sasha-firebase.cloudfunctions.net/app/nlp",
+      });
+
+      app.off("speech-selected").on("speech-selected", function (data) {
+        var user_says = data.speech;
+        self.messages.addMessage({
+          text: user_says,
+        });
+        self.receiveMessage(user_says);
+      });
+
+      // Custom cards handling code.
+      app.off("append-card-to-chat").on("append-card-to-chat", function (data) {
+        var msg_txt = data.card.msg;
+        var css_class = data.card.css_class;
+        var show_typing = data.card.show_typing;
+        var noTail = data.card.noTail;
+        self.messages.addMessage({
+          text: msg_txt,
+          type: "received",
+          noTail: noTail,
+          cssClass:
+            css_class == undefined
+              ? "message message-received message-tail"
+              : css_class,
+        });
+        if (show_typing) {
+          self.messages.showTyping();
+        } else {
+          self.messages.hideTyping();
+        }
+      });
+    },
+
+    methods: {
+      showMessages: function () {
+        var um = $$("#user_message").val();
+        if (um == "" || um.trim().length < 1) return;
+
+        var msg = $$("#one-message").html();
+        this.messages.showTyping({
+          header: "Flora is typing",
+        });
+        var text = this.messageBar.getValue().replace(/\n/g, "<br>").trim();
+        // return if empty message
+        if (!text.length) return;
+
+        // Clear area
+        this.messageBar.clear();
+
+        // Return focus to area
+        this.messageBar.focus();
+
+        // Add message to messages
+        this.messages.addMessage({
+          text: text,
+        });
+
+        this.receiveMessage(text);
+      },
+      receiveMessage: function (user_says) {
+        // Local NLP check
+        // var found_local_intent = checkMatchingLocalIntent(user_says.toLowerCase(), local_intents);
+        // if (found_local_intent && found_local_intent.ui == "1") {
+        //     app.emit(found_local_intent.intent, {
+        //         payload: found_local_intent
+        //     })
+        //     // return;
+        // } else if (found_local_intent) {
+        //     console.log(found_local_intent);
+        //     fireMessage(found_local_intent.responses);
+        // } else {
+        //     fireMessage("Can you say that again.");
+        // }
+
+        // fetch("https://healment-gptnp.onrender.com", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({ prompt: user_says }),
+        //   // body: "prompt=" + user_says
+        // })
+        //   .then((res) => res.json())
+        //   .then((res) =>
+        //     fireMessage(res.bot.replace(new RegExp("\r?\n", "g"), "_"))
+        //   );
+
+        const lowercaseInput = user_says.toLowerCase();
+
+        // Check if the input string contains 'blood' or 'news'
+        if (lowercaseInput.includes("blood")) {
+          app.emit("show-bp");
+        } else if (lowercaseInput.includes("news")) {
+          app.emit("health-news");
+        } else {
+          fireMessage(
+            "I dont have that information now. I will do better when my AI model gets trained well."
+          );
+        }
+      },
+      showVoiceUI: function () {
+        loadScreen("/voice/");
+      },
+    },
+  };
+</script>

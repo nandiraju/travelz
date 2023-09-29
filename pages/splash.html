@@ -1,0 +1,97 @@
+<template>
+  <div class="page" data-name="home">
+    <!-- <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back" style="opacity: 0;;margin-right: 10px;">
+                        <i class="icon icon-back"></i>
+                        <span class="ios-only">Back</span>
+                    </a>
+                </div>
+                <div class="title">MyBenefits</div>
+                <div class="right">
+                    <ion-icon name="square-outline" style="opacity: 0;;margin-right: 10px;"></ion-icon>
+                </div>
+            </div>
+        </div> -->
+
+    <div class="toolbar toolbar-bottom no-shadow">
+      <div class="toolbar-inner">
+        <a
+          class="button button-fill color-blue sheet-open"
+          href="#"
+          data-sheet=".my-sheet"
+          style="width: 90%; margin: auto"
+          >Next</a
+        >
+      </div>
+    </div>
+    <div class="page-content">
+      <div
+        class="display-flex justify-content-center align-items-center"
+        style="height: 100vh"
+      >
+        <div
+          class="display-flex flex align-items-center justify-content-center flex-direction-column"
+        >
+          <img src="img/family.png" width="50%" style="border-radius: 15px" />
+          <br /><br />
+          <img src="img/logo.png" />
+          <p style="padding: 20px; text-align: center">
+            We’d like to provide you an easy-to-understand and personalized
+            post-care at your fingertips. Receive important updates from a
+            healthcare provider and receive feedback on any concern related to
+            your post-care in real-time.
+          </p>
+        </div>
+      </div>
+      <div class="sheet-modal my-sheet">
+        <div class="sheet-modal-inner">
+          <div class="block">
+            <p style="font-size: 18px"><b>Patient Login</b></p>
+            <form class="list form-list inset">
+              <ul>
+                <li class="item-content item-input item-input-outline">
+                  <div class="item-inner">
+                    <div class="item-title item-floating-label">
+                      Patient Phone Number
+                    </div>
+                    <div class="item-input-wrap">
+                      <input
+                        type="text"
+                        name="title"
+                        placeholder="Use your hospital registered phone number"
+                      />
+                      <span class="input-clear-button"></span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </form>
+            <a
+              href="#"
+              class="button button-fill color-blue"
+              onclick="loadScreen('/dashboard/');app.sheet.close('.my-sheet');"
+            >
+              Continue
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  return {
+    data: function () {
+      return {
+        is_checked: "un-checked",
+      };
+    },
+    mounted() {
+      var self = this;
+    },
+  };
+</script>

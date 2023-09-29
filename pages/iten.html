@@ -1,0 +1,184 @@
+<template>
+  <div class="page" data-name="iten">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a class="link" onclick="loadScreen('/')">
+            <ion-icon name="home-outline" class="white-icon" size="large">
+            </ion-icon>
+          </a>
+        </div>
+        <div class="title">Travelz</div>
+        <div class="right">
+          <!-- <ion-icon name="chatbubbles-outline" class="white-icon"></ion-icon> -->
+          &nbsp;&nbsp;
+        </div>
+      </div>
+    </div>
+    <div class="page-content">
+
+      <div class="block-title display-flex flex-direction-row align-items-center">
+        <ion-icon name="compass-outline" class="heading-icon"></ion-icon>&nbsp;&nbsp;Your Trip Itenarary
+      </div>
+      <div class="accordion-list block">
+        <div class="accordion-item">
+          <div class="accordion-item-toggle">
+            <div
+              class="nav-card display-flex flex-direction-row align-items-center justify-content-space-between shadow-card">
+              <div class="img-circle-wrapper display-flex justify-content-center align-items-center">
+                <img src="https://www.svgrepo.com/show/429896/health-insurance-finance.svg" class="left-icon" />
+              </div>
+              <div class="text-panel">
+                <span class="activity-heading">Day 1</span>
+                <br />
+                Activities
+              </div>
+              <img src="https://www.svgrepo.com/show/522783/check-circle.svg" width="35" alt="" />
+            </div>
+          </div>
+          <div class="accordion-item-content">
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-item-date">1</div>
+                <div class="timeline-item-divider"></div>
+                <div class="timeline-item-content card">
+                  <div class="card-content card-content-padding">
+                    Stay
+                  </div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-item-date">2</div>
+                <div class="timeline-item-divider"></div>
+                <div class="timeline-item-content card">
+                  <div class="card-content card-content-padding">
+                    Eat
+                  </div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-item-date">3</div>
+                <div class="timeline-item-divider"></div>
+                <div class="timeline-item-content card">
+                  <div class="card-content card-content-padding">
+                    Play
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-item-toggle">
+            <div
+              class="nav-card display-flex flex-direction-row align-items-center justify-content-space-between shadow-card">
+              <div class="img-circle-wrapper display-flex justify-content-center align-items-center">
+                <img src="https://www.svgrepo.com/show/429865/health-report-list.svg" class="left-icon" />
+              </div>
+              <div class="text-panel">
+                <span class="activity-heading">Day 2</span>
+                <br />
+                Activities
+              </div>
+              <img src="https://www.svgrepo.com/show/522783/check-circle.svg" width="35" alt="" />
+            </div>
+          </div>
+          <div class="accordion-item-content">
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-item-date">1</div>
+                <div class="timeline-item-divider"></div>
+                <div class="timeline-item-content card">
+                  <div class="card-content card-content-padding">
+                    Visit
+                  </div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-item-date">2</div>
+                <div class="timeline-item-divider"></div>
+                <div class="timeline-item-content card">
+                  <div class="card-content card-content-padding">
+                    Eat
+                  </div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-item-date">3</div>
+                <div class="timeline-item-divider"></div>
+                <div class="timeline-item-content card">
+                  <div class="card-content card-content-padding">
+                    Cruise
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-item-toggle">
+            <div
+              class="nav-card display-flex flex-direction-row align-items-center justify-content-space-between shadow-card">
+              <div class="img-circle-wrapper display-flex justify-content-center align-items-center">
+                <img src="https://www.svgrepo.com/show/429894/medicine-bottle-drug.svg" class="left-icon" />
+              </div>
+              <div class="text-panel">
+                <span class="activity-heading">Day 3</span>
+                <br />
+                Activities
+              </div>
+              <img src="https://www.svgrepo.com/show/522783/check-circle.svg" width="35" alt="" />
+            </div>
+          </div>
+          <div class="accordion-item-content">
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-item-date">1</div>
+                <div class="timeline-item-divider"></div>
+                <div class="timeline-item-content card">
+                  <div class="card-content card-content-padding">
+                    Drive
+                  </div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-item-date">2</div>
+                <div class="timeline-item-divider"></div>
+                <div class="timeline-item-content card">
+                  <div class="card-content card-content-padding">
+                    Swim
+                  </div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-item-date">3</div>
+                <div class="timeline-item-divider"></div>
+                <div class="timeline-item-content card">
+                  <div class="card-content card-content-padding">
+                    Dinner
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  return {
+    data: function () {
+      return {
+        dashboard: DASHBOARD,
+      };
+    },
+    mounted() {
+      var self = this;
+    },
+  };
+</script>

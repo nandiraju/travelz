@@ -1,0 +1,98 @@
+<template>
+  <div class="page" data-name="howmany">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">Travelz</div>
+        <div class="right">
+          <ion-icon name="square-outline" style="opacity: 0; margin-right: 10px"></ion-icon>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar toolbar-bottom no-shadow" style="height:70px;background-color: #fff;">
+      <div class="toolbar-inner padding">
+        <a class="button button-fill color-teal hider" onclick="goBack()" href="#">&nbsp;&nbsp;Prev&nbsp;&nbsp;</a>
+        <a class="button button-fill color-blue" onclick="loadScreen('/preferences/')"
+          href="#">&nbsp;&nbsp;Next&nbsp;&nbsp;</a>
+      </div>
+    </div>
+    <div class="page-content display-flex flex-direction-column justify-content-center align-content-center">
+      <div>
+        <div class="block-title block-title-medium text-align-center">
+          Who is comming with you?
+        </div>
+        <div class="row block justify-content-center align-content-center">
+          <div class="col-100 medium-60">
+            <div class="block inset">
+              <p class="segmented segmented-strong">
+                <button class="button" id="solo">
+                  <img src="https://www.svgrepo.com/show/492705/happy-man.svg" width="90">
+                </button>
+                <button class="button button-active" button id="family">
+                  <img src="https://www.svgrepo.com/show/492948/family-4-people.svg" width="70">
+                </button>
+                <button class="button" id="friends">
+                  <img src="https://www.svgrepo.com/show/492698/people-who-support.svg" width="80">
+                </button>
+                <button class="button" id="partner">
+                  <img src="https://www.svgrepo.com/show/492768/stylish-couple.svg" width="85">
+                </button>
+                <span class="segmented-highlight"></span>
+              </p>
+              <div class="row" style="margin-top:-10px;">
+                <div class="col-25 text-align-center">Single</div>
+                <div class="col-25 text-align-center">Family</div>
+                <div class="col-25 text-align-center">Friends</div>
+                <div class="col-25 text-align-center">Partner</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="block inset m10">
+          <lottie-player id="ani-player" src="https://lottie.host/ee633f23-3078-4ba4-bee9-0b55dbfd4198/Lj5ODz4C8B.json"
+            background="transparent" speed="1" style="width: 320px; margin: auto" loop autoplay></lottie-player>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  return {
+    data: function () {
+      return {
+        is_checked: "un-checked",
+      };
+    },
+    mounted() {
+      var self = this;
+      var selectedTab = undefined;
+      $$(".tab-link").on("click", function (e) {
+        $$(".tab-link").removeClass("tab-link-active");
+        $$(this).addClass("tab-link-active");
+      });
+
+      $$(".segmented-strong .button").on("click", function (e) {
+        $$(".segmented-strong .button").removeClass("button-active");
+        $$(this).addClass("button-active");
+
+        let emotion = $$(this).attr("id");
+        document.querySelector('input[name="emotion"]').value = emotion;
+        var one_note = app.form.convertToData("#notes-form");
+        console.log("Selected emotion is " + JSON.stringify(one_note));
+      });
+
+      function selectEmotion(emotionType) {
+        $$(".segmented-strong .button").removeClass("button-active");
+        let emotionUI = "#" + emotionType;
+        $$(emotionUI).addClass("button-active");
+      }
+    },
+  };
+</script>
