@@ -11,39 +11,86 @@
         </div>
         <div class="title">Travelz</div>
         <div class="right">
-          <ion-icon name="square-outline" style="opacity: 0; margin-right: 10px"></ion-icon>
+          <ion-icon
+            name="square-outline"
+            style="opacity: 0; margin-right: 10px"
+          ></ion-icon>
         </div>
       </div>
     </div>
-    <div class="toolbar toolbar-bottom no-shadow" style="height:70px;background-color: #fff;">
+    <div
+      class="toolbar toolbar-bottom no-shadow"
+      style="height: 70px; background-color: #fff"
+    >
       <div class="toolbar-inner padding">
-        <a class="button button-fill color-teal hider" href="#">&nbsp;&nbsp;Prev&nbsp;&nbsp;</a>
-        <a class="button button-fill color-blue" onclick="loadScreen('/dates/')"
-          href="#">&nbsp;&nbsp;Next&nbsp;&nbsp;</a>
+        <a class="button button-fill color-teal hider" href="#"
+          >&nbsp;&nbsp;Prev&nbsp;&nbsp;</a
+        >
+        <a
+          class="button button-fill color-blue"
+          onclick="loadScreen('/dates/')"
+          href="#"
+          >&nbsp;&nbsp;Next&nbsp;&nbsp;</a
+        >
       </div>
     </div>
-    <div class="page-content display-flex flex-direction-column justify-content-center align-content-center">
+    <!-- <div class="page-content display-flex flex-direction-column justify-content-center align-content-center"> -->
+
+    <div class="page-content">
       <div>
         <div class="block-title block-title-medium text-align-center">
           Travelz is an AI travel agent that helps you plan your trip.
         </div>
+
         <div class="row block justify-content-center align-content-center">
           <div class="col-100 medium-60">
-            <form class="searchbar">
+            <div class="list no-hairlines-md">
+              <ul>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <!-- <div class="item-title item-label">Location</div> -->
+                    <div class="item-input-wrap">
+                      <input
+                        id="autocomplete-dropdown-ajax"
+                        type="text"
+                        placeholder="Where do you want to go"
+                      />
+                      <span class="input-clear-button"></span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- <form class="searchbar">
               <div class="searchbar-inner">
                 <div class="searchbar-input-wrap">
-                  <input type="search" placeholder="Where do you wnat to go ?" class="text-align-center">
+                  <input
+                    type="search"
+                    placeholder="Where do you wnat to go ?"
+                    class="text-align-center"
+                  />
                   <i class="searchbar-icon"></i>
                   <span class="input-clear-button"></span>
                 </div>
                 <span class="searchbar-disable-button">Cancel</span>
               </div>
-            </form>
+            </form> -->
+          </div>
+          <div class="col-100 medium-60 text-align-center">
+            <span id="place_summary"></span>
           </div>
         </div>
+        <div class="block text-align-center"></div>
         <div class="block inset m10">
-          <lottie-player id="ani-player" src="https://lottie.host/912b39b8-e206-4d0e-a51d-c059e3edacf3/NlgTikHj7c.json"
-            background="transparent" speed="0.5" style="width: 320px; margin: auto" loop autoplay></lottie-player>
+          <lottie-player
+            id="ani-player"
+            src="https://lottie.host/912b39b8-e206-4d0e-a51d-c059e3edacf3/NlgTikHj7c.json"
+            background="transparent"
+            speed="0.5"
+            style="width: 320px; margin: auto"
+            loop
+            autoplay
+          ></lottie-player>
         </div>
       </div>
     </div>
@@ -59,17 +106,57 @@
     },
     mounted() {
       var self = this;
-      var startDate = app.calendar.create({
-        inputEl: '#start_date',
-        timePicker: false,
-        openIn: 'popup',
-        dateFormat: 'mm/dd/yyyy',
-      });
-      var endDate = app.calendar.create({
-        inputEl: '#end_date',
-        timePicker: false,
-        openIn: 'popup',
-        dateFormat: 'mm/dd/yyyy',
+      var autocompleteDropdownAjax = app.autocomplete.create({
+        inputEl: "#autocomplete-dropdown-ajax",
+        openIn: "dropdown",
+        preloader: true, //enable preloader
+        /* If we set valueProperty to "id" then input value on select will be set according to this property */
+        valueProperty: "destination", //object's "value" property name
+        textProperty: "destination", //object's "text" property name
+        limit: 10, //limit to 20 results
+        dropdownPlaceholderText: 'Try "Dubai"',
+        source: function (query, render) {
+          var autocomplete = this;
+          var results = [];
+          if (query.length === 0) {
+            render(results);
+            return;
+          }
+          // Show Preloader
+          autocomplete.preloaderShow();
+
+          // Do Ajax request to Autocomplete data
+          app.request({
+            url: "js/destinations.json",
+            method: "GET",
+            dataType: "json",
+            //send "query" to server. Useful in case you generate response dynamically
+            data: {
+              query: query,
+            },
+            success: function (data) {
+              // Find matched items
+              for (var i = 0; i < data.length; i++) {
+                if (
+                  data[i].destination
+                    .toLowerCase()
+                    .indexOf(query.toLowerCase()) >= 0
+                )
+                  results.push(data[i]);
+              }
+              // Hide Preoloader
+              autocomplete.preloaderHide();
+              // Render items by passing array with result items
+              render(results);
+            },
+          });
+        },
+        on: {
+          change: function (value) {
+            console.log(value[0].destination_description);
+            $$("#place_summary").html(value[0].destination_description);
+          },
+        },
       });
     },
   };
