@@ -27,7 +27,7 @@ var app = new Framework7({
     },
     {
       path: "/",
-      componentUrl: "./pages/welcome.html",
+      componentUrl: "./pages/iten.html",
       name: "splash",
       options: {
         transition: "f7-push",

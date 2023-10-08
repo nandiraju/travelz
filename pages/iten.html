@@ -17,168 +17,77 @@
       </div>
     </div>
     <div class="page-content">
-
-      <div class="block-title display-flex flex-direction-row align-items-center">
-        <ion-icon name="compass-outline" class="heading-icon"></ion-icon>&nbsp;&nbsp;Your Trip Itenarary
+      <div
+        class="block-title display-flex flex-direction-row align-items-center"
+      >
+        <ion-icon name="compass-outline" class="heading-icon"></ion-icon
+        >&nbsp;&nbsp;Your trip to Sedona for 3 days with your partner
       </div>
-      <div class="accordion-list block">
-        <div class="accordion-item">
-          <div class="accordion-item-toggle">
-            <div
-              class="nav-card display-flex flex-direction-row align-items-center justify-content-space-between shadow-card">
-              <div class="img-circle-wrapper display-flex justify-content-center align-items-center">
-                <img src="https://www.svgrepo.com/show/429896/health-insurance-finance.svg" class="left-icon" />
-              </div>
-              <div class="text-panel">
-                <span class="activity-heading">Day 1</span>
-                <br />
-                Activities
-              </div>
-              <img src="https://www.svgrepo.com/show/522783/check-circle.svg" width="35" alt="" />
-            </div>
-          </div>
-          <div class="accordion-item-content">
+
+      <div class="row no-gap">
+        <!-- Trip Itenary-->
+        <div class="col-50">
+          <div class="block">
             <div class="timeline">
               <div class="timeline-item">
                 <div class="timeline-item-date">1</div>
                 <div class="timeline-item-divider"></div>
                 <div class="timeline-item-content card">
-                  <div class="card-content card-content-padding">
-                    Stay
-                  </div>
-                </div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-item-date">2</div>
-                <div class="timeline-item-divider"></div>
-                <div class="timeline-item-content card">
-                  <div class="card-content card-content-padding">
-                    Eat
-                  </div>
-                </div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-item-date">3</div>
-                <div class="timeline-item-divider"></div>
-                <div class="timeline-item-content card">
-                  <div class="card-content card-content-padding">
-                    Play
-                  </div>
+                  <div class="card-content card-content-padding">Stay</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <div class="accordion-item">
-          <div class="accordion-item-toggle">
-            <div
-              class="nav-card display-flex flex-direction-row align-items-center justify-content-space-between shadow-card">
-              <div class="img-circle-wrapper display-flex justify-content-center align-items-center">
-                <img src="https://www.svgrepo.com/show/429865/health-report-list.svg" class="left-icon" />
-              </div>
-              <div class="text-panel">
-                <span class="activity-heading">Day 2</span>
-                <br />
-                Activities
-              </div>
-              <img src="https://www.svgrepo.com/show/522783/check-circle.svg" width="35" alt="" />
-            </div>
-          </div>
-          <div class="accordion-item-content">
-            <div class="timeline">
-              <div class="timeline-item">
-                <div class="timeline-item-date">1</div>
-                <div class="timeline-item-divider"></div>
-                <div class="timeline-item-content card">
-                  <div class="card-content card-content-padding">
-                    Visit
-                  </div>
-                </div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-item-date">2</div>
-                <div class="timeline-item-divider"></div>
-                <div class="timeline-item-content card">
-                  <div class="card-content card-content-padding">
-                    Eat
-                  </div>
-                </div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-item-date">3</div>
-                <div class="timeline-item-divider"></div>
-                <div class="timeline-item-content card">
-                  <div class="card-content card-content-padding">
-                    Cruise
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-item-toggle">
-            <div
-              class="nav-card display-flex flex-direction-row align-items-center justify-content-space-between shadow-card">
-              <div class="img-circle-wrapper display-flex justify-content-center align-items-center">
-                <img src="https://www.svgrepo.com/show/429894/medicine-bottle-drug.svg" class="left-icon" />
-              </div>
-              <div class="text-panel">
-                <span class="activity-heading">Day 3</span>
-                <br />
-                Activities
-              </div>
-              <img src="https://www.svgrepo.com/show/522783/check-circle.svg" width="35" alt="" />
-            </div>
-          </div>
-          <div class="accordion-item-content">
-            <div class="timeline">
-              <div class="timeline-item">
-                <div class="timeline-item-date">1</div>
-                <div class="timeline-item-divider"></div>
-                <div class="timeline-item-content card">
-                  <div class="card-content card-content-padding">
-                    Drive
-                  </div>
-                </div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-item-date">2</div>
-                <div class="timeline-item-divider"></div>
-                <div class="timeline-item-content card">
-                  <div class="card-content card-content-padding">
-                    Swim
-                  </div>
-                </div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-item-date">3</div>
-                <div class="timeline-item-divider"></div>
-                <div class="timeline-item-content card">
-                  <div class="card-content card-content-padding">
-                    Dinner
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <!-- Map related UI here -->
+        <div
+          class="col-50 display-flex flex-direction-column justify-content-center align-items-center"
+        >
+          <div id="map"></div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
+<style>
+  #map {
+    height: 400px;
+    width: 95%;
+    /* border: 2px solid red;
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    width: 500px; */
+  }
+</style>
 <script>
   return {
     data: function () {
       return {
-        dashboard: DASHBOARD,
+        trip_list: {},
       };
     },
     mounted() {
       var self = this;
+      var map = L.map("map").setView([51.505, -0.09], 13);
+
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      L.marker([51.5, -0.09])
+        .addTo(map)
+        .bindPopup("A pretty CSS popup.<br> Easily customizable.")
+        .openPopup();
+
+      app.request.get(
+        "https://rappys.appspot.com/tripservice/651218e34eb74d132c119ab4",
+        {},
+        function (data) {
+          console.log("Load was performed " + data);
+        }
+      );
     },
   };
 </script>
