@@ -69,7 +69,12 @@
     },
     mounted() {
       var self = this;
-      var map = L.map("map").setView([51.505, -0.09], 13);
+
+      var container = L.DomUtil.get("map");
+      if (container && container["_leaflet_id"] != null) {
+        container.remove();
+      }
+      let map = L.map("map").setView([51.505, -0.09], 13);
 
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
